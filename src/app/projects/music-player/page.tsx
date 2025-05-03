@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import { useState } from 'react';
 
 
@@ -25,8 +26,10 @@ const MusicPlayer = () => {
         </div>
         <div className="player-content p-4">
           <div id="player-album-art" className="text-center">
-            <img
+            <Image
               src="https://cdn.freecodecamp.org/curriculum/js-music-player/quincy-larson-album-art.jpg"
+              width={192}
+              height={192}
               alt="song cover art"
               className="w-48 h-48 rounded-lg mx-auto"
             />

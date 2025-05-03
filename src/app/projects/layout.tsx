@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import React from "react";
-
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -14,7 +14,14 @@ const ProjectsLayout = ({
 }>) => {
   return (
     <>
-      <div>Projects:</div>
+      <nav className="flex items-center justify-between p-4 bg-gray-900 text-white">
+        <Link
+          className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+          href="/projects"
+        >
+          Projects
+        </Link>
+      </nav>
       {children}
     </>
   );
