@@ -42,7 +42,6 @@ const PostsPage = async () => {
 
   return (
     <div>
-      <div className="flex m-10 text-xl font-semibold">Posts Page</div>
       {posts.map((post: Post) => (
         <PostCard key={post.id} post={post} />
       ))}

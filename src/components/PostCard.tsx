@@ -1,6 +1,7 @@
 "use client"
 // Importa el componente PostCard y la interfaz Post
 import { Post } from '@/app/projects/posts/page'
+import Link from 'next/link';
 
 // 1. Define las props que espera el componente PostCard
 interface PostCardProps {
@@ -14,7 +15,9 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({post}) => {
   return (
     <div key={post.id} className='m-4 p-4 md:m-8 lg:m-16'>
-      <h2 className='text-xl font-bold mb-2'>{post.id}. {post.title}</h2>
+      <Link href={`/projects/posts/${post.id}`} className='m-12 p-6 rounded-lg shadow-md'>
+        <h2 className='text-xl font-bold mb-2'>{post.id}. {post.title}</h2>
+      </Link>
       <p className='text-gray-300'>{post.body}</p>
       <div className='flex justify-end'>
         <button 
