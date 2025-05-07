@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
         // pathname: '/curriculum/js-music-player/**', // Example: More specific path
         pathname: '/**', // Allows any path under this hostname
       },
+      {
+        protocol: 'https', // Match the protocol of the image URL
+        hostname: 'reqres.in', // The hostname from the error message
+        // You can optionally specify port and pathname if needed,
+        // but hostname is usually sufficient.
+        // port: '',
+        // pathname: '/curriculum/js-music-player/**', // Example: More specific path
+        pathname: '/**', // Allows any path under this hostname
+      },
       // Add other domains you might need here
       // {
       //   protocol: 'https',
