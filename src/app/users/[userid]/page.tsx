@@ -9,15 +9,16 @@ interface UserPageProps {
   };
 }
 
+const reqresApiKey = process.env.REQRES_API_KEY
+
 // This function is called on the server side and can be used to fetch data
 // You can also use it to perform any server-side logic you need
 async function loadUser(id: number) {
   const res = await fetch(`https://reqres.in/api/users/${id}`, { 
     cache: 'no-store',
-    headers: {
-      'x-api-key': 'reqres-free-v1',
-      // 'Content-Type': 'application/json'
-    }, });
+    headers: reqresApiKey
+      ? { 'x-api-key': reqresApiKey }
+      : undefined, })
   const data = await res.json();
 
   return data.data;

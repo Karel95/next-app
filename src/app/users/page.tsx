@@ -10,13 +10,14 @@ export interface User {
   avatar: string
 }
 
+const reqresApiKey = process.env.REQRES_API_KEY
+
 async function fetchUsers(): Promise<User[]> {
   const res = await fetch('https://reqres.in/api/users', { 
     cache: 'no-store',
-    headers: {
-      'x-api-key': 'reqres-free-v1',
-      // 'Content-Type': 'application/json'
-    }, })
+    headers: reqresApiKey
+      ? { 'x-api-key': reqresApiKey }
+      : undefined, })
   const data = await res.json()
 
   await new Promise((resolve) => setTimeout(resolve, 3000));
