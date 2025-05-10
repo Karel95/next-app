@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import prisma from "../../../../libs/prisma";
 
 
 /////////////////////////////
@@ -8,18 +9,27 @@ import { NextResponse } from "next/server";
 // This is a simple API route that handles GET, POST, PUT, and DELETE requests for example purposes.
 // You can replace the logic inside each function with your own implementation as needed, like fetching data from a database or performing other operations.
 
-export function GET() {
-  return NextResponse.json({ message: "Hello from the tasks route!" });
+export async function GET() {
+
+  const tasks = await prisma.task.findMany()
+
+  console.log("tasks:\n", tasks);
+
+  return NextResponse.json({ message: `All tasks`, tasks });
 }
 
-export function POST() {
-  return NextResponse.json({ message: `Task created!` });
-}
+export async function POST(request) {
 
-export function PUT() {
-  return NextResponse.json({ message: `Task updated!` });
-}
+  const data = await request.json();
 
-export function DELETE() {
-  return NextResponse.json({ message: `Task deleted!` });
+  const task = await prisma.task.create({
+    data: {
+      title: data.title,
+      description: data.description
+    }
+  });
+
+  console.log("task:\n", task);  
+
+  return NextResponse.json({ message: `New task created succesfully!`, task });
 }
