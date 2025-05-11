@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import prisma from "../../libs/prisma";
-
+import Tasks from "./Tasks";
 
 // Define the type for a task
-type Task = {
+export type Task = {
   id: number;
   title: string;
   description: string | null;
@@ -24,32 +24,26 @@ async function getTasks(): Promise<Task[]> {
   // const data = await resp.json();
 
   // // Example 2: Directly to the DB (recommended)
-  const data = await prisma.task.findMany()
+  const data = await prisma.task.findMany();
 
   // In both cases, we can use the data in the same way
-  console.log('Response:', data);
+  console.log("Response:", data);
   return data;
 }
 
 async function PrismaCrudPage() {
-
-  const tasks = await getTasks()
-  console.log('Tasks:', tasks);
+  const tasks = await getTasks();
+  console.log("Tasks:", tasks);
   return (
-    <div>
-      {tasks.map((task) => (
-        <div key={task.id} className="max-w-md mx-auto mt-10 p-6 bg-slate-700 shadow-md rounded-lg">
-          <h1 className="text-2xl font-bold mb-4 text-gray-100">{task.title}</h1>
-          <p className="text-gray-100 mb-6">{task.description}</p>
-          <p className="text-gray-100 mb-6">Created at: {new Date(task.createdAt).toLocaleString()}</p>
-          <p className="text-gray-100 mb-6">Status: {task.completed}</p>
-        </div>
-      ))}
-      <div className="max-w-md mx-auto my-10 p-6 bg-slate-700 shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold mb-4 text-gray-100">Total tasks: {tasks.length}</h1>
-      </div>
-    </div>
-  )
+    <>
+      <Tasks tasks={tasks} />
+      <footer className="flex justify-center items-center h-full">
+        <h1 className="text-2xl font-bold mb-4 text-gray-100">
+          Total tasks: {tasks.length}
+        </h1>
+      </footer>
+    </>
+  );
 }
 
-export default PrismaCrudPage
+export default PrismaCrudPage;
