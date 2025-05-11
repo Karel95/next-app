@@ -21,7 +21,7 @@ const ProjectsLayout = ({
               className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               href="/prisma_crud/new"
             >
-              New
+              New task
             </Link>
           </li>
         </ul>
