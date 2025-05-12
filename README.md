@@ -55,8 +55,16 @@ npx prisma init --datasource-provider postgresql
 npx prisma init --datasource-provider sqlite
 
 npx prisma migrate dev --name init
+# or
+npx prisma migrate
 
 npx prisma studio
+```
+
+### React Hook Form
+
+```bash
+npm i react-hook-form
 ```
 
 ## Source video

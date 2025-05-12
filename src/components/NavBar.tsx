@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-lightBlue-500 mb-3">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-lightBlue-500">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
           <Link
@@ -45,6 +45,22 @@ const NavBar = () => {
                 href="/prisma_crud"
               >
                 Prisma CRUD
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                href="/auth/login"
+              >
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                href="/auth/register"
+              >
+                Register
               </Link>
             </li>
           </ul>
