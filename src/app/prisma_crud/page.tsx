@@ -1,5 +1,5 @@
 import React from "react";
-import prisma from "../../libs/prisma";
+import { prisma } from "@/libs/prisma";
 import Tasks from "./Tasks";
 
 // Define the type for a task

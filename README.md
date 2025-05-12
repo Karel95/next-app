@@ -50,6 +50,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ```bash
 npm install prisma --save-dev
 
+npx prisma init --datasource-provider postgresql
+# or
 npx prisma init --datasource-provider sqlite
 
 npx prisma migrate dev --name init
