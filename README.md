@@ -67,6 +67,12 @@ npx prisma studio
 npm i react-hook-form
 ```
 
+### Bcrypt
+
+```bash
+npm i bcrypt
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
