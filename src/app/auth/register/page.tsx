@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
@@ -9,6 +10,9 @@ type Inputs = {
 };
 
 const RegisterPage = () => {
+  // Redirect to another page after successful registration
+    const router = useRouter();
+    
   /////////////////////////////////////////////////////////////
   // // This is a just simple example, we won't use this way //
   /////////////////////////////////////////////////////////////
@@ -43,7 +47,9 @@ const RegisterPage = () => {
       return;
     }
 
-    console.log(data);
+    // // Log the form data only for demonstration
+    // // you should not log sensitive data like passwords
+    // console.log(data);
 
     // Handle form submission logic here
     // For example, send data to your API or perform validation
@@ -61,6 +67,8 @@ const RegisterPage = () => {
     if (response.ok) {
       // Handle successful registration
       console.log("Registration successful");
+      // Redirect to the login page
+      router.push("/auth/login");
     } else {
       // Handle registration error
       console.error("Registration failed");

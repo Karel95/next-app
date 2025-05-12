@@ -30,12 +30,15 @@ export async function POST(request) {
         data
     });
 
-    // Simulate saving to DB
-    console.log('User registered:', newUser);
+    // Return the user without the password
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _, ...userWithoutPassword } = newUser;
 
+    // Save to DB
+    console.log('User registered:', userWithoutPassword);
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
   } catch (error) {
-    console.error('Error registering user:', error);
+    console.error('Error registering user:', error.message);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
