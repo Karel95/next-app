@@ -16,7 +16,13 @@ const ProjectsLayout = ({
     <>
       <nav className="flex items-center justify-between m-4 p-4 bg-gray-900 text-white rounded-lg">
         <ul className="flex list-none">
-          <li className="">
+          <li className="flex">
+            <Link
+              className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              href="/prisma_crud"
+            >
+              All tasks
+            </Link>
             <Link
               className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               href="/prisma_crud/new"
