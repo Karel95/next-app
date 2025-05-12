@@ -56,3 +56,7 @@ npx prisma migrate dev --name init
 
 npx prisma studio
 ```
+
+## Source video
+
+<https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
