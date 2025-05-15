@@ -79,6 +79,12 @@ npm i bcrypt
 npm i next-auth
 ```
 
+### Nodemailer
+
+```bash
+npm i nodemailer
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
