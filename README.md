@@ -73,6 +73,12 @@ npm i react-hook-form
 npm i bcrypt
 ```
 
+### NextAuth
+
+```bash
+npm i next-auth
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
