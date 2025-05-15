@@ -1,9 +1,11 @@
 // pages/api/auth/[...nextauth].js
 import NextAuth from "next-auth"
-import AppleProvider from "next-auth/providers/apple"
-import GoogleProvider from "next-auth/providers/google"
-import EmailProvider from "next-auth/providers/email"
+// import AppleProvider from "next-auth/providers/apple"
+// import GoogleProvider from "next-auth/providers/google"
+// import EmailProvider from "next-auth/providers/email"
 import Credentials from "next-auth/providers/credentials"
+import { prisma } from "@/libs/prisma"
+import bcrypt from "bcrypt"
 
 
 const authOptions = {
@@ -32,27 +34,35 @@ const authOptions = {
         password: { label: "Password", type: "password", placeholder: "Type your password" },
       },
       async authorize(credentials, req) {
-        // console.log("req:\n", req)
+        console.log("credentials:\n", credentials)
+        console.log("request body:\n", req.body)
 
-        // const { email, password } = credentials
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        })
 
-        // // You can add your own logic here to authenticate the user
-        // // For example, you can call your own API to verify the credentials
-        // const res = await fetch("https://example.com/api/auth", {
-        //   method: "POST",
-        //   body: JSON.stringify({ email, password }),
-        //   headers: { "Content-Type": "application/json" },
-        // })
+        if (!user) {
+          console.log("user not found")
+          return null
+        }
 
-        // const user = await res.json()
+        console.log("user:\n", user)
 
-        // // If no error and we have user data, return it
-        // if (res.ok && user) {
-        //   return user
-        // }
+        const matchPassword = await bcrypt.compare(credentials.password, user.password)
+        
+        if (!matchPassword) {
+          console.log("password does not match")
+          return null
+        }
 
-        // // If you return null or false then the credentials will be rejected
-        return null
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        }
       }
     }),
   ],
