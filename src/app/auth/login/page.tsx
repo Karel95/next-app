@@ -26,6 +26,7 @@ const LoginPage = () => {
         alert(res.error);
       } else if (res?.ok) {
         router.push("/dashboard");
+        router.refresh();
       } else {
         alert("Something went wrong");
       }

@@ -1,4 +1,5 @@
 'use client';
+import { signOut } from 'next-auth/react';
 import React from 'react';
 
 
@@ -14,8 +15,13 @@ export default function DashboardPage() {
     <main className="min-h-screen bg-gray-900 text-gray-100 p-8">
       <header className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <button className="bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded transition">
-          Settings
+        <button
+          onClick={() => signOut()}
+          type="button"
+          aria-label="Log Out"
+          className="bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded transition"
+        >
+          Log Out
         </button>
       </header>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">

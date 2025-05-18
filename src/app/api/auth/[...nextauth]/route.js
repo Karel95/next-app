@@ -8,7 +8,7 @@ import { prisma } from "@/libs/prisma"
 import bcrypt from "bcrypt"
 
 
-const authOptions = {
+export const authOptions = {
   secret: process.env.SECRET,
   providers: [
     // OAuth authentication providers
@@ -30,24 +30,33 @@ const authOptions = {
     Credentials({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "Type your email" },
-        password: { label: "Password", type: "password", placeholder: "Type your password" },
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "Type your email",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Type your password",
+        },
       },
       async authorize(credentials) {
-
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
           },
-        })
+        });
 
         if (!user) {
           throw new Error("User not found");
         }
 
+        const matchPassword = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
 
-        const matchPassword = await bcrypt.compare(credentials.password, user.password)
-        
         if (!matchPassword) {
           throw new Error("Password does not match");
         }
@@ -57,11 +66,16 @@ const authOptions = {
           name: user.name,
           email: user.email,
           image: user.image,
-        }
-      }
+        };
+      },
     }),
   ],
-}
+  // session 
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/login",
+  },
+};
 
 const handler = NextAuth(authOptions)
 
