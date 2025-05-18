@@ -8,8 +8,6 @@ export async function POST(request) {
     const data = await request.json();
     const { name, email, password } = data;
 
-    console.log("data:\n", data);
-
     // Validate input
     if (!name || !email || !password) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
@@ -35,7 +33,6 @@ export async function POST(request) {
     const { password: _, ...userWithoutPassword } = newUser;
 
     // Save to DB
-    console.log('User registered:', userWithoutPassword);
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
   } catch (error) {
     console.error('Error registering user:', error.message);

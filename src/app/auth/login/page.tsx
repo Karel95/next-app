@@ -17,7 +17,6 @@ const LoginPage = () => {
     } = useForm<Inputs>();
 
   const onSubmit = handleSubmit(async (data) => {
-      console.log(data);
       const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
@@ -26,7 +25,7 @@ const LoginPage = () => {
       if (res?.error) {
         alert(res.error);
       } else if (res?.ok) {
-        router.push("/");
+        router.push("/dashboard");
       } else {
         alert("Something went wrong");
       }

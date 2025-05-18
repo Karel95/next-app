@@ -70,22 +70,13 @@ const RegisterPage = () => {
     });
     if (response.ok) {
       // Handle successful registration
-      console.log("Registration successful");
       // Redirect to the login page
       router.push("/auth/login");
     } else {
       // Handle registration error
-      console.error("Registration failed");
+      alert("Registration failed");
     }
-    const res = await response.json();
-    console.log(res);
   };
-
-  // // Watch the input values
-  // console.log(watch("name")); // watch input value by passing the name of it
-  // console.log(watch("email")); // watch input value by passing the name of it
-  // console.log(watch("password")); // watch input value by passing the name of it
-  // console.log(watch("confirmPassword")); // watch input value by passing the name of it
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">

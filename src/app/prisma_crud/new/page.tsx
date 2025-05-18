@@ -24,15 +24,12 @@ function NewPage({ params }: NewPageProps) {
         return response.json();
       })
       .then((data) => {
-        console.log("Task data:", data);
-        console.log("Task data title:", data.task.title);
-        console.log("Task data description:", data.task.description);
         // You can set the task data to state or use it as needed
         setTitle(data.task.title);
         setDescription(data.task.description);
       })
       .catch((error) => {
-        console.error("Error fetching task data:", error);
+        alert(`Error fetching task data: ${error}`);
       });
   }, [params.taskid]);
 
@@ -56,13 +53,12 @@ function NewPage({ params }: NewPageProps) {
         },
       });
       if (resp.ok) {
-        const data = await resp.json();
+        // const data = await resp.json();
         // Optionally, you can redirect the user or show a success message.
-        console.log("Task updated successfully:", data);
         router.push("/prisma_crud");
       } else {
         // Handle error case
-        console.error("Error updating task:", resp.statusText);
+        alert(`Error updating task: ${resp.statusText}`);
       }
     } else {
       const resp = await fetch("api/tasks", {
@@ -73,13 +69,12 @@ function NewPage({ params }: NewPageProps) {
         },
       });
       if (resp.ok) {
-        const data = await resp.json();
+        // const data = await resp.json();
         // Optionally, you can redirect the user or show a success message.
-        console.log("Task created successfully:", data);
         router.push("/prisma_crud");
       } else {
         // Handle error case
-        console.error("Error creating task:", resp.statusText);
+        alert(`Error creating task: ${resp.statusText}`);
       }
     }
   }
@@ -144,9 +139,8 @@ function NewPage({ params }: NewPageProps) {
                 method: "DELETE",
               });
               if (resp.ok) {
-                const data = await resp.json();
+                // const data = await resp.json();
                 // Optionally, you can redirect the user or show a success message.
-                console.log("Task deleted successfully:", data);
                 router.push("/prisma_crud");
               } else {
                 // Handle error case

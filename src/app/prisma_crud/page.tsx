@@ -27,13 +27,11 @@ async function getTasks(): Promise<Task[]> {
   const data = await prisma.task.findMany();
 
   // In both cases, we can use the data in the same way
-  console.log("Response:", data);
   return data;
 }
 
 async function PrismaCrudPage() {
   const tasks = await getTasks();
-  console.log("Tasks:", tasks);
   return (
     <>
       <Tasks tasks={tasks} />

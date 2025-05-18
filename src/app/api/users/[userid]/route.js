@@ -29,12 +29,6 @@ export async function GET(request, { params }) {
   // You can also use searchParams.has('paramName') to check if a specific query parameter exists.
   const { searchParams } = new URL(request.url);
 
-  console.log("searchParams:\n", searchParams);
-  console.log(searchParams.get("search"));
-  console.log(searchParams.has("search"));
-  console.log(searchParams.get("sort"));
-  console.log(searchParams.has("sort"));
-
   return NextResponse.json({ message: `Searching user ${params.userid} with search params: ${searchParams}` });
 }
 

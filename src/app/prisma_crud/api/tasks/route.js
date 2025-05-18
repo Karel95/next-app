@@ -13,8 +13,6 @@ export async function GET() {
 
   const tasks = await prisma.task.findMany()
 
-  console.log("tasks:\n", tasks);
-
   return NextResponse.json({ message: `All tasks`, tasks });
 }
 
@@ -28,8 +26,6 @@ export async function POST(request) {
       description: data.description
     }
   });
-
-  console.log("task:\n", task);  
 
   return NextResponse.json({ message: `New task created succesfully!`, task });
 }

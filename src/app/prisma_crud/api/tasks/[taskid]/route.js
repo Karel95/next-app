@@ -17,8 +17,6 @@ export async function GET(request, { params }) {
     }
   })
 
-  console.log("task:\n", task);
-
   // // Search params not used in this example, but you can use them if needed.
   // const { searchParams } = new URL(request.url);
   // console.log("searchParams:\n", searchParams);
@@ -37,8 +35,6 @@ export async function PUT(request, { params }){
     data: data
   })
 
-  console.log("task:\n", task);
-
   return NextResponse.json({ message: `Updating task ${params.taskid}`, task });
 }
 
@@ -49,8 +45,6 @@ export async function DELETE(request, { params }){
       id: Number(params.taskid)
     }
   })
-
-  console.log("task:\n", task);
 
   // // Search params not used in this example, but you can use them if needed.
   // const { searchParams } = new URL(request.url);

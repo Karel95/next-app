@@ -33,9 +33,7 @@ const authOptions = {
         email: { label: "Email", type: "email", placeholder: "Type your email" },
         password: { label: "Password", type: "password", placeholder: "Type your password" },
       },
-      async authorize(credentials, req) {
-        console.log("credentials:\n", credentials)
-        console.log("request body:\n", req.body)
+      async authorize(credentials) {
 
         const user = await prisma.user.findUnique({
           where: {
@@ -44,16 +42,13 @@ const authOptions = {
         })
 
         if (!user) {
-          console.log("user not found")
           throw new Error("User not found");
         }
 
-        console.log("user:\n", user)
 
         const matchPassword = await bcrypt.compare(credentials.password, user.password)
         
         if (!matchPassword) {
-          console.log("password does not match")
           throw new Error("Password does not match");
         }
 
