@@ -1,8 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-type Inputs = {
+export type Inputs = {
   name: string;
   email: string;
   password: string;
@@ -11,7 +12,10 @@ type Inputs = {
 
 const RegisterPage = () => {
   // Redirect to another page after successful registration
-    const router = useRouter();
+  const router = useRouter();
+
+  // Create error variable
+  const [matchError, setMatchError] = useState<string|null>(null)
     
   /////////////////////////////////////////////////////////////
   // // This is a just simple example, we won't use this way //
@@ -43,7 +47,7 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // Check if password and confirm password match
     if (data.password !== data.confirmPassword) {
-      console.error("Passwords do not match");
+      setMatchError("Passwords do not match");
       return;
     }
 
@@ -112,7 +116,12 @@ const RegisterPage = () => {
               id="email"
               // value={formData.email}
               // onChange={handleChange}
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Email is required",
+                },
+              })}
               placeholder="johndoe@email.com"
               className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
@@ -153,6 +162,7 @@ const RegisterPage = () => {
           {errors.email && <span>This field is required</span>}
           {errors.password && <span>This field is required</span>}
           {errors.confirmPassword && <span>This field is required</span>}
+          {matchError && <span className="text-red-500 mt-2">{matchError}</span>}
           <button
             type="submit"
             className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded text-white font-semibold transition"

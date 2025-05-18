@@ -45,7 +45,7 @@ const authOptions = {
 
         if (!user) {
           console.log("user not found")
-          return null
+          throw new Error("User not found");
         }
 
         console.log("user:\n", user)
@@ -54,7 +54,7 @@ const authOptions = {
         
         if (!matchPassword) {
           console.log("password does not match")
-          return null
+          throw new Error("Password does not match");
         }
 
         return {
