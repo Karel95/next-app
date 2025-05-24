@@ -89,6 +89,12 @@ npm i next-auth
 npm i nodemailer
 ```
 
+### Flowbite
+
+```bash
+npx flowbite-react@latest init
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>

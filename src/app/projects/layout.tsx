@@ -32,6 +32,14 @@ const ProjectsLayout = ({
               Posts
             </Link>
           </li>
+          <li className="">
+            <Link
+              className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              href="/projects/notes"
+            >
+              Notes
+            </Link>
+          </li>
         </ul>
       </nav>
       {children}
