@@ -52,6 +52,8 @@ npm install prisma -D
 # or
 npm install prisma --save-dev
 
+npx prisma init
+# or
 npx prisma init --datasource-provider postgresql
 # or
 npx prisma init --datasource-provider sqlite
