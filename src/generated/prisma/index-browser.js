@@ -136,6 +136,14 @@ exports.Prisma.TaskScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NoteScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -154,7 +162,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Task: 'Task'
+  Task: 'Task',
+  Note: 'Note'
 };
 
 /**

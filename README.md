@@ -48,15 +48,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ### Prisma ORM
 
 ```bash
+npm install prisma -D
+# or
 npm install prisma --save-dev
 
 npx prisma init --datasource-provider postgresql
 # or
 npx prisma init --datasource-provider sqlite
 
-npx prisma migrate dev --name init
+npx prisma migrate dev
 # or
-npx prisma migrate
+npx prisma migrate dev --name init
 
 npx prisma studio
 ```
