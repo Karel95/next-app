@@ -1,10 +1,10 @@
 "use client";
-import { NewNote, Note } from "@/interfaces/NoteInterface";
+import { NewNote, PrismaNoteModel } from "@/interfaces/NoteInterface";
 import { createContext, useContext, useState } from "react";
 
 
 export const NotesContext = createContext<{
-  notes: Note[];
+  notes: PrismaNoteModel[];
   loadNotes: () => Promise<void>;
   addNote: (newNote: NewNote) => Promise<void>;
   deleteNote: (id: string) => Promise<void>;
@@ -28,7 +28,7 @@ export const NotesContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<PrismaNoteModel[]>([]);
 
   async function loadNotes() {
     const res = await fetch("/api/notes");
@@ -54,7 +54,14 @@ export const NotesContextProvider = ({
     });
     const data = await response.json();
     console.log(data);
-    setNotes(notes.filter((note) => note.id !== id));
+
+    const numericId = parseInt(id, 10);
+
+    if (isNaN(numericId)) {
+      console.error("Error: ID inválido para eliminar:", id);
+      return;
+    }
+    setNotes(notes.filter((note) => note.id !== numericId));
   };
 
   return (

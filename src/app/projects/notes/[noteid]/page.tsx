@@ -1,10 +1,10 @@
 "use client";
 import { useNotes } from "@/context/NoteContext";
-import { Note } from "@/interfaces/NoteInterface";
+import { PrismaNoteModel } from "@/interfaces/NoteInterface";
 import { Button } from "flowbite-react";
 
 
-function NotePage({ note }: { note: Note }) {
+function NotePage({ note }: { note: PrismaNoteModel }) {
   const { deleteNote } =  useNotes();
 
   if (!note) {
@@ -28,8 +28,8 @@ function NotePage({ note }: { note: Note }) {
       </Button>
       <Button
         onClick={() => {
-          if (confirm("Are you sure you want to delete this note?")) {
-            deleteNote(note.id);
+          if (confirm("Are you sure you want to delete this note?")) { 
+            deleteNote(note.id.toString());
           }
         }}
         className="inline-flex items-center mx-3 px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"

@@ -1,7 +1,6 @@
-export interface Note {
-  id: string;
-  title: string;
-  content: string;
-}
+import { Note as PrismaNoteModel } from "@/generated/prisma";
 
-export type NewNote = Omit<Note, 'id'>;
+
+export type { PrismaNoteModel };
+
+export type NewNote = Omit<PrismaNoteModel, 'id' | 'createdAt' | 'updatedAt'>;
