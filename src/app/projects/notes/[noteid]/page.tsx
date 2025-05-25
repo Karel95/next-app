@@ -1,5 +1,5 @@
 "use client";
-import type { Note } from "@/context/NoteContext";
+import { Note } from "@/interfaces/NoteInterface";
 
 
 function NotePage({ note }: { note: Note }) {

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { Note, useNotes } from "@/context/NoteContext";
+import { useNotes } from "@/context/NoteContext";
+import { Note } from "@/interfaces/NoteInterface";
 import NotePage from "./[noteid]/page";
 import NoteForm from "@/components/NoteForm";
 

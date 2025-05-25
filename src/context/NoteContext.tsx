@@ -1,11 +1,7 @@
 "use client";
+import { Note } from "@/interfaces/NoteInterface";
 import { createContext, useContext, useState } from "react";
 
-export interface Note {
-  id: string;
-  title: string;
-  content: string;
-}
 
 export type NewNote = Omit<Note, 'id'>;
 
