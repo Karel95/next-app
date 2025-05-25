@@ -95,6 +95,12 @@ npm i nodemailer
 npx flowbite-react@latest init
 ```
 
+### React Icons
+
+```bash
+npm i react-icons
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
