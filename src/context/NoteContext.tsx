@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export interface Note {
   id: string;
@@ -18,6 +18,14 @@ export const NotesContext = createContext<{
   loadNotes: async () => {},
   addNote: async () => {},
 });
+
+export const useNotes = () => {
+  const context = useContext(NotesContext);
+  if (!context) {
+    throw new Error("useNotes must be used within a NotesContextProvider");
+  }
+  return context;
+};
 
 export const NotesContextProvider = ({
   children,

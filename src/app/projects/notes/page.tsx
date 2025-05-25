@@ -1,15 +1,16 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { NotesContext, Note } from "@/context/NoteContext";
+import { useEffect } from "react";
+import { Note, useNotes } from "@/context/NoteContext";
 import NotePage from "./[noteid]/page";
 import NoteForm from "@/components/NoteForm";
 
 
 function NotesPage() {
-  const { notes, loadNotes } = useContext(NotesContext);
+  const { notes, loadNotes } = useNotes();
   
   useEffect(() => {
     loadNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

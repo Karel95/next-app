@@ -1,12 +1,12 @@
 "use client";
-import { NotesContext } from "@/context/NoteContext";
-import { useContext, useState } from "react";
+import { useNotes } from "@/context/NoteContext";
+import { useState } from "react";
 
 function NoteForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const { addNote } = useContext(NotesContext);
+  const { addNote } = useNotes();
 
   return (
     <form
