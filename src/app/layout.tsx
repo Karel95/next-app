@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google"; // Ctrl + Space to see the available fonts
 import "./globals.css";
 import NavBar from "@/components/NavBar";
-import { NotesContextProvider } from "@/context/NoteContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
   verification: {
     google: "google-site-verification-code",
   },
-  authors: [{ name: "KarlDev95", url: ''}],
+  authors: [{ name: "KarlDev95", url: "" }],
   creator: "KarlDev95",
   keywords: "Next.js, TypeScript, Tailwind CSS",
 };
@@ -60,10 +59,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NotesContextProvider>
-          <NavBar />
-          {children}
-        </NotesContextProvider>
+        <NavBar />
+        {children}
       </body>
     </html>
   );
