@@ -7,10 +7,12 @@ export const NotesContext = createContext<{
   notes: Note[];
   loadNotes: () => Promise<void>;
   addNote: (newNote: NewNote) => Promise<void>;
+  deleteNote: (id: string) => Promise<void>;
 }>({
   notes: [],
   loadNotes: async () => {},
   addNote: async () => {},
+  deleteNote: async () => {},
 });
 
 export const useNotes = () => {
@@ -46,8 +48,17 @@ export const NotesContextProvider = ({
     setNotes([...notes, data]);
   };
 
+  async function deleteNote(id: string) {
+    const response = await fetch(`/api/notes/${id}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+    setNotes(notes.filter((note) => note.id !== id));
+  };
+
   return (
-    <NotesContext.Provider value={{ notes, loadNotes, addNote }}>
+    <NotesContext.Provider value={{ notes, loadNotes, addNote, deleteNote }}>
       {children}
     </NotesContext.Provider>
   );
