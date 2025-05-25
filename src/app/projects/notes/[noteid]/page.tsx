@@ -1,37 +1,12 @@
-import React from "react";
+"use client";
+import type { Note } from "@/context/NoteContext";
 
 
-interface NotePageProps {
-  // Accept ID as string, as it comes from URL params
-  id: string;
-}
-
-async function loadNote(id: string) {
-  try {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
-      cache: "no-store", // Or 'force-cache' or revalidate options depending on needs
-    });
-
-    if (!res.ok) {
-      console.error(`Failed to fetch note ${id}: ${res.status}`);
-      return null; // Or throw new Error(...)
-    }
-    const note = await res.json();
-    return note;
-  } catch (error) {
-    console.error("Error in loadNote:", error);
-    return null; // Or throw error
-  }
-}
-
-async function NotePage({ id }: NotePageProps) {
-  const note = await loadNote(id);
-  console.log("NotePage:", note);
-
+function NotePage({ note }: { note: Note }) {
   if (!note) {
     return (
-      <div className="p-4 border rounded shadow bg-red-100 text-red-700">
-        Note with ID {id} not found or failed to load.
+      <div className="p-4 border rounded shadow bg-yellow-100 text-yellow-700">
+        Note data missing.
       </div>
     );
   }

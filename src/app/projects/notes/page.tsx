@@ -1,30 +1,24 @@
-import React from "react";
+"use client";
+import { useContext, useEffect } from "react";
+import { NotesContext, Note } from "@/context/NoteContext";
 import NotePage from "./[noteid]/page";
 import NoteForm from "@/components/NoteForm";
 
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-}
-
-async function loadNotes(): Promise<Note[]> {
-  const res = await fetch("http://localhost:3000/api/notes");
-  const notes = await res.json();
-  return Array.isArray(notes) ? notes : [];
-}
-async function NotesPage() {
-  const notes = await loadNotes();
-  console.log(notes);
+function NotesPage() {
+  const { notes, loadNotes } = useContext(NotesContext);
+  
+  useEffect(() => {
+    loadNotes();
+  }, []);
 
   return (
     <>
       <NoteForm />
       <br />
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 m-4">
-        {notes.map((note) => {
-          return <NotePage key={note.id} id={note.id} />;
+        {notes.map((note: Note) => {
+          return <NotePage key={note.id} note={note} />;
         })}
       </div>
     </>
