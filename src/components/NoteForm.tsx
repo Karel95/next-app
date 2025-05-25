@@ -1,10 +1,12 @@
 "use client";
 import { useNotes } from "@/context/NoteContext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function NoteForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const titleRef = useRef<HTMLInputElement>(null);
 
   const { addNote } = useNotes();
 
@@ -18,6 +20,11 @@ function NoteForm() {
           title,
           content,
         });
+
+        setTitle("");
+        setContent("");
+
+        titleRef.current?.focus();
       }}
     >
       <div className="mb-5"></div>
@@ -33,6 +40,8 @@ function NoteForm() {
           id="title"
           name="title"
           placeholder="Title"
+          value={title}
+          ref={titleRef}
           className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -49,6 +58,7 @@ function NoteForm() {
           id="content"
           name="content"
           placeholder="Content"
+          value={content}
           className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={(e) => setContent(e.target.value)}
         />
