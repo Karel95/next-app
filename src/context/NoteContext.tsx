@@ -8,11 +8,15 @@ export const NotesContext = createContext<{
   loadNotes: () => Promise<void>;
   addNote: (newNote: NewNote) => Promise<void>;
   deleteNote: (id: string) => Promise<void>;
+  selectedNote: PrismaNoteModel | null;
+  setSelectedNote: (note: PrismaNoteModel | null) => void;
 }>({
   notes: [],
   loadNotes: async () => {},
   addNote: async () => {},
   deleteNote: async () => {},
+  selectedNote: null,
+  setSelectedNote: () => {},
 });
 
 export const useNotes = () => {
@@ -29,6 +33,7 @@ export const NotesContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [notes, setNotes] = useState<PrismaNoteModel[]>([]);
+  const [selectedNote, setSelectedNote] = useState<PrismaNoteModel|null>(null)
 
   async function loadNotes() {
     const res = await fetch("/api/notes");
@@ -65,7 +70,7 @@ export const NotesContextProvider = ({
   };
 
   return (
-    <NotesContext.Provider value={{ notes, loadNotes, addNote, deleteNote }}>
+    <NotesContext.Provider value={{ notes, loadNotes, addNote, deleteNote, selectedNote, setSelectedNote }}>
       {children}
     </NotesContext.Provider>
   );

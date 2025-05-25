@@ -1,14 +1,21 @@
 "use client";
 import { useNotes } from "@/context/NoteContext";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function NoteForm() {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<string>("");
 
   const titleRef = useRef<HTMLInputElement>(null);
 
-  const { addNote } = useNotes();
+  const { addNote, selectedNote, setSelectedNote } = useNotes();
+
+  useEffect(() => {
+    if (selectedNote) {
+      setTitle(selectedNote.title);
+      setContent(selectedNote.content || "");
+    }
+  }, [selectedNote]);
 
   return (
     <form
@@ -63,24 +70,28 @@ function NoteForm() {
           onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Create Note
-        <svg
-          className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
+      <div className="flex items-center justify-end gap-2 mt-4">
+        <button
+          type="submit"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-          />
-        </svg>
-      </button>
+          Create
+        </button>
+        {selectedNote && (
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedNote(null);
+              setTitle("");
+              setContent("");
+              titleRef.current?.focus();
+            }}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 }
