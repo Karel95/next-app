@@ -28,6 +28,13 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Running server locally
+
+```bash
+# Start the container
+docker-compose up -d
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -48,20 +55,28 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ### Prisma ORM
 
 ```bash
+# Install Prisma CLI as a development dependency
 npm install prisma -D
 # or
+# Install Prisma CLI as a development dependency (alternative syntax)
 npm install prisma --save-dev
 
+# Initialize Prisma in your project, creating schema and .env files
 npx prisma init
 # or
+# Initialize Prisma specifically for PostgreSQL
 npx prisma init --datasource-provider postgresql
 # or
+# Initialize Prisma specifically for SQLite
 npx prisma init --datasource-provider sqlite
 
+# Create and apply a new migration based on schema changes (prompts for name)
 npx prisma migrate dev
 # or
+# Create and apply a new migration with a specific name (e.g., "init")
 npx prisma migrate dev --name init
 
+# Open Prisma Studio, a GUI for your database
 npx prisma studio
 ```
 
