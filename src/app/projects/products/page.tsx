@@ -16,6 +16,16 @@ function ProductsPage() {
   const [openModal, setOpenModal] = useState(false);
   const [modalPlacement, setModalPlacement] = useState("center");
 
+  const [products, setProducts] = useState({
+    name: "",
+    price: 0,
+    category: "",
+  });
+
+  const handleInputChange = (e) => {
+    console.log("Input changed:", e.target.value);
+  };
+
   return (
     <>
       {/* <!-- Modal toggle --> */}
@@ -67,6 +77,7 @@ function ProductsPage() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-0 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Type product name"
                   required
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-span-2 sm:col-span-1">
@@ -83,6 +94,7 @@ function ProductsPage() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-0 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="$2999"
                   required
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-span-2 sm:col-span-1">
@@ -115,6 +127,7 @@ function ProductsPage() {
                   rows={4}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write product description here"
+                  onChange={handleInputChange}
                 ></Textarea>
               </div>
             </div>
