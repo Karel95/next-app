@@ -79,7 +79,7 @@ function ProductForm() {
             <option value="bottom-left">Bottom left</option>
           </Select>
         </div>
-        <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
+        <Button onClick={() => setOpenModal(true)}>Add New Product</Button>
       </div>
 
       {/* <!-- Main modal --> */}
@@ -182,7 +182,7 @@ function ProductForm() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                Add new product
+                Add New Product
               </Button>
               <Button color="alternative" onClick={() => setOpenModal(false)}>
                 Cancel
