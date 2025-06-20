@@ -33,6 +33,16 @@ const nextConfig: NextConfig = {
     // If you were using the older 'domains' configuration (less recommended now):
     // domains: ['cdn.freecodecamp.org', 'another.example.com'],
   },
+  async redirects() {
+    // Example of a redirect rule
+    return [
+      {
+        source: '/old-path',
+        destination: '/new-path',
+        permanent: true,
+      },
+    ];
+  }
 };
 
 export default withFlowbiteReact(nextConfig);
