@@ -116,6 +116,12 @@ npx flowbite-react@latest init
 npm i react-icons
 ```
 
+### Axios
+
+```bash
+npm i axios
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
