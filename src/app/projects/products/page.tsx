@@ -1,6 +1,7 @@
 import ProductForm from '@/components/ProductForm'
 import { prisma } from "@/libs/prisma";
 import type { Product as PrismaProduct } from '@/generated/prisma/client';
+import { ProductCard } from '@/components/ProductCard';
 
 
 async function loadProducts(): Promise<PrismaProduct[]> {
@@ -16,6 +17,7 @@ async function ProductsPage() {
   return (
     <>
       <ProductForm />
+      <ProductCard />
     </>
   )
 }
