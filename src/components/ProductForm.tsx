@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "flowbite-react";
+import { useRouter } from "next/navigation";
 
 function ProductForm() {
   const [openModal, setOpenModal] = useState(false);
@@ -23,6 +24,7 @@ function ProductForm() {
     description: "",
   });
   const form = useRef<HTMLFormElement | null>(null);
+  const router = useRouter();
 
   // Handle input changes and update the products state
   const handleChange = (
@@ -48,13 +50,15 @@ function ProductForm() {
 
     // Execute the API call to add a new product
     axios
-      .post('/api/products', payload)
+      .post("/api/products", payload)
       .then((response) => {
         console.log("Product added successfully:", response.data.product);
         // Reset the form fields
         form.current?.reset();
-        // // Optionally you can close the modal after submission
-        // setOpenModal(false);
+        // Optionally you can close the modal after submission
+        setOpenModal(false);
+        // Redirect to the products page
+        router.push("/projects/products");
       })
       .catch((error) => {
         console.error("Error adding product:", error);
