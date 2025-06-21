@@ -9,6 +9,12 @@ type ProductCardProps = {
   product: PrismaProduct;
 };
 
+async function handleEditButtonClick(id:number) {
+  console.log("Editing product with ID", id);
+  // Redirect to the edit page with the product ID as a query parameter
+  window.location.href = `/projects/products/edit/${id}`;
+}
+
 async function handleDeleteButtonClick(id:number) {
   if (confirm(`Are you sure you want to delete the product number ${id}?`)) {
     // Implement your delete functionality here
@@ -49,8 +55,16 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <hr />
       <div className="flex items-end justify-end gap-2 mt-2">
-        <Button color={"blue"}>Edit</Button>
-        <Button color={"red"} onClick={() => handleDeleteButtonClick(product.id)}>
+        <Button
+          color={"blue"}
+          onClick={() => handleEditButtonClick(product.id)}
+        >
+          Edit
+        </Button>
+        <Button
+          color={"red"}
+          onClick={() => handleDeleteButtonClick(product.id)}
+        >
           Delete
         </Button>
       </div>

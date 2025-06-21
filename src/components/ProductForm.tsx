@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
   Button,
@@ -12,9 +12,14 @@ import {
   ModalFooter,
   ModalHeader,
 } from "flowbite-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import type { Product as PrismaProduct } from "@/generated/prisma/client";
 
-function ProductForm() {
+interface ProductFormProps {
+  product?: PrismaProduct | null;
+}
+
+function ProductForm({ product }: ProductFormProps) {
   const [openModal, setOpenModal] = useState(false);
   const [modalPlacement, setModalPlacement] = useState("center");
   const [products, setProducts] = useState({
@@ -25,6 +30,7 @@ function ProductForm() {
   });
   const form = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
+  const params = useParams();
 
   // Handle input changes and update the products state
   const handleChange = (
@@ -48,22 +54,62 @@ function ProductForm() {
       rating: parseFloat(products.rating),
     };
 
-    // Execute the API call to add a new product
-    axios
-      .post("/api/products", payload)
-      .then((response) => {
-        console.log("Product added successfully:", response.data.product);
-        // Reset the form fields
-        form.current?.reset();
-        // Optionally you can close the modal after submission
-        setOpenModal(false);
-        // Redirect to the products page
-        router.push("/projects/products");
-      })
-      .catch((error) => {
-        console.error("Error adding product:", error);
-      });
+    if (!product) {
+      // Execute the API call to add a new product
+      axios
+        .post("/api/products", payload)
+        .then((response) => {
+          console.log("Product added successfully:", response.data.product);
+        })
+        .catch((error) => {
+          console.error("Error adding product:", error);
+        });
+        resetReload()
+    } else {
+      // Execute the API call to update an existing product
+      axios
+        .put(`/api/products/${product.id}`, payload)
+        .then((response) => {
+          console.log("Product updated successfully:", response.data.product);
+        })
+        .catch((error) => {
+          console.error("Error updating product:", error);
+        });
+        resetReload()
+    }
   };
+
+  useEffect(() => {
+    if (product) {
+      console.log("Params found:", params);
+      console.log(`Product:\n${JSON.stringify(product, null, 2)}`);
+      // Here we can use two different approaches to handle the product data
+      // Approach 1: Use the existing product data received from the parent component
+      // Approach 2: Use the params object to fetch the product data.
+      // In this example, we will use the first approach.
+      const payload = {
+        ...product,
+        price: String(product.price),
+        rating: String(product.rating),
+        description: product.description || "",
+      };
+      // Update the form fields with the product data
+      setProducts(payload);
+      setOpenModal(true);
+    } else {
+      console.log("No params found");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
+
+  function resetReload() {
+    // Reset the form fields
+    form.current?.reset();
+    // Optionally you can close the modal after submission
+    setOpenModal(false);
+    // Redirect to the products page
+    router.push("/projects/products");
+  }
 
   return (
     <>
@@ -115,6 +161,7 @@ function ProductForm() {
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-0 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Type product name"
+                  value={products.name}
                   required
                   onChange={handleChange}
                 />
@@ -132,6 +179,7 @@ function ProductForm() {
                   id="price"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-0 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="$9.99"
+                  value={products.price}
                   required
                   onChange={handleChange}
                 />
@@ -171,6 +219,7 @@ function ProductForm() {
                   rows={4}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write product description here"
+                  value={products.description}
                   onChange={handleChange}
                 ></Textarea>
               </div>
@@ -192,7 +241,7 @@ function ProductForm() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                Add New Product
+                {product ? "Update" : "Create"}
               </Button>
               <Button color="alternative" onClick={() => setOpenModal(false)}>
                 Cancel
