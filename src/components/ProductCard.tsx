@@ -1,11 +1,24 @@
+"use client";
 import { Button, Card } from "flowbite-react";
 import type { Product as PrismaProduct } from "@/generated/prisma/client";
 import RatingStars from "./RatingStars";
 import Link from "next/link";
+import axios from "axios";
 
 type ProductCardProps = {
   product: PrismaProduct;
 };
+
+async function handleDeleteButtonClick(id:number) {
+  if (confirm(`Are you sure you want to delete the product number ${id}?`)) {
+    // Implement your delete functionality here
+    console.log("Deleting product with ID", id);
+    const res = await axios.delete('/api/products/' + id);
+    console.log(res);
+    // Redirect to the products page after successful deletion
+    window.location.href = "/projects/products";
+  }
+}
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
@@ -37,7 +50,9 @@ export function ProductCard({ product }: ProductCardProps) {
       <hr />
       <div className="flex items-end justify-end gap-2 mt-2">
         <Button color={"blue"}>Edit</Button>
-        <Button color={"red"}>Delete</Button>
+        <Button color={"red"} onClick={() => handleDeleteButtonClick(product.id)}>
+          Delete
+        </Button>
       </div>
     </Card>
   );
