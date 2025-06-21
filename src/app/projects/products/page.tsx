@@ -12,7 +12,7 @@ async function loadProducts(): Promise<PrismaProduct[]> {
 async function ProductsPage() {
   // Load products when the component mounts
   const products = await loadProducts();
-  console.log(`Products:\n${JSON.stringify(products, null, 2)}`);
+  // console.log(`Products:\n${JSON.stringify(products, null, 2)}`);
 
   return (
     <>

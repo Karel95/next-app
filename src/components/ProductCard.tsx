@@ -1,7 +1,7 @@
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import type { Product as PrismaProduct } from "@/generated/prisma/client";
 import RatingStars from "./RatingStars";
-
+import Link from "next/link";
 
 type ProductCardProps = {
   product: PrismaProduct;
@@ -14,11 +14,11 @@ export function ProductCard({ product }: ProductCardProps) {
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
       imgSrc="/images/products/apple-watch.png"
     >
-      <a href="#">
+      <Link href={`/projects/products/${product.id}`}>
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
           {product.name}
         </h5>
-      </a>
+      </Link>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {product.description}
       </p>
@@ -33,6 +33,11 @@ export function ProductCard({ product }: ProductCardProps) {
         >
           Add to cart
         </a>
+      </div>
+      <hr />
+      <div className="flex items-end justify-end gap-2 mt-2">
+        <Button color={"blue"}>Edit</Button>
+        <Button color={"red"}>Delete</Button>
       </div>
     </Card>
   );
