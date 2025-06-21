@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const { name, description, price } = await request.json();
+    const { name, description, price, rating } = await request.json();
     if (!name) {
       return NextResponse.json({ message: "Invalid request" });
     }
@@ -25,6 +25,7 @@ export async function POST(request) {
         name,
         description,
         price,
+        rating,
       },
     });
     if (!product) {
