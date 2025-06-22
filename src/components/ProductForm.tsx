@@ -14,6 +14,7 @@ import {
 } from "flowbite-react";
 import { useParams, useRouter } from "next/navigation";
 import type { Product as PrismaProduct } from "@/generated/prisma/client";
+import { FileInp } from "./FileInp";
 
 interface ProductFormProps {
   product?: PrismaProduct | null;
@@ -64,7 +65,7 @@ function ProductForm({ product }: ProductFormProps) {
         .catch((error) => {
           console.error("Error adding product:", error);
         });
-        resetRedirect()
+      resetRedirect();
     } else {
       // Execute the API call to update an existing product
       axios
@@ -75,15 +76,15 @@ function ProductForm({ product }: ProductFormProps) {
         .catch((error) => {
           console.error("Error updating product:", error);
         });
-        resetRedirect(product.id)
+      resetRedirect(product.id);
     }
   };
 
   function handleCancelBtnClick() {
     if (!product) {
-      resetRedirect()
+      resetRedirect();
     } else {
-      resetRedirect(product.id)
+      resetRedirect(product.id);
     }
   }
 
@@ -159,6 +160,9 @@ function ProductForm({ product }: ProductFormProps) {
           {/* <!-- Modal header --> */}
           <ModalHeader>Create New Product</ModalHeader>
           {/* <!-- Modal body --> */}
+          <div className="flex items-center justify-center my-3">
+            <FileInp />
+          </div>
           <form onSubmit={handleSubmit} ref={form}>
             <div className="grid gap-4 mb-4 grid-cols-2">
               <div className="col-span-2">
