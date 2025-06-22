@@ -64,7 +64,7 @@ function ProductForm({ product }: ProductFormProps) {
         .catch((error) => {
           console.error("Error adding product:", error);
         });
-        resetReload()
+        resetRedirect()
     } else {
       // Execute the API call to update an existing product
       axios
@@ -75,9 +75,17 @@ function ProductForm({ product }: ProductFormProps) {
         .catch((error) => {
           console.error("Error updating product:", error);
         });
-        resetReload()
+        resetRedirect(product.id)
     }
   };
+
+  function handleCancelBtnClick() {
+    if (!product) {
+      resetRedirect()
+    } else {
+      resetRedirect(product.id)
+    }
+  }
 
   useEffect(() => {
     if (product) {
@@ -102,13 +110,18 @@ function ProductForm({ product }: ProductFormProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-  function resetReload() {
+  function resetRedirect(productId?: number) {
     // Reset the form fields
     form.current?.reset();
     // Optionally you can close the modal after submission
     setOpenModal(false);
-    // Redirect to the products page
-    router.push("/projects/products");
+    // Redirect to the specific product page
+    if (productId) {
+      router.push(`/projects/products/${productId}`);
+      router.refresh();
+    } else {
+      router.push("/projects/products");
+    }
   }
 
   return (
@@ -224,7 +237,7 @@ function ProductForm({ product }: ProductFormProps) {
                 ></Textarea>
               </div>
             </div>
-            <ModalFooter>
+            <ModalFooter className="flex justify-end">
               <Button
                 type="submit"
                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -243,7 +256,10 @@ function ProductForm({ product }: ProductFormProps) {
                 </svg>
                 {product ? "Update" : "Create"}
               </Button>
-              <Button color="alternative" onClick={() => setOpenModal(false)}>
+              <Button
+                color="alternative"
+                onClick={() => handleCancelBtnClick()}
+              >
                 Cancel
               </Button>
             </ModalFooter>
