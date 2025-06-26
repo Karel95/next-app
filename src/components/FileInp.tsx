@@ -1,10 +1,15 @@
 "use client";
 import { FileInput, Label } from "flowbite-react";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-export function FileInp() {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+interface FileInpProps {
+  selectedFile: File | null;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
+}
+
+export function FileInp({ selectedFile, setSelectedFile }: FileInpProps) {
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const fileFromInput = event.target.files?.[0];

@@ -16,7 +16,17 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const { name, description, price, rating } = await request.json();
+    // Get the form data from the request
+    const data = await request.formData();
+
+    // Extract the form data
+    const name = data.get("name");
+    const description = data.get("description");
+    const price = data.get("price");
+    const rating = data.get("rating");
+    const image = data.get("image");
+    console.log("image:\n", image);
+
     if (!name) {
       return NextResponse.json({ message: "Invalid request" });
     }
@@ -24,8 +34,8 @@ export async function POST(request) {
       data: {
         name,
         description,
-        price,
-        rating,
+        price: price ? parseFloat(price) : null,
+        rating: rating ? parseFloat(rating) : null,
       },
     });
     if (!product) {

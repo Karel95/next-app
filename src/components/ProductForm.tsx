@@ -29,6 +29,7 @@ function ProductForm({ product }: ProductFormProps) {
     rating: "",
     description: "",
   });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const form = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
   const params = useParams();
@@ -48,35 +49,36 @@ function ProductForm({ product }: ProductFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Convert price to a float and prepare the payload
-    const payload = {
-      ...products,
-      price: parseFloat(products.price),
-      rating: parseFloat(products.rating),
-    };
+    // Create a FormData object to handle file uploads and other fields
+    const formData = new FormData();
 
-    if (!product) {
-      // Execute the API call to add a new product
-      axios
-        .post("/api/products", payload)
-        .then((response) => {
-          console.log("Product added successfully:", response.data.product);
-        })
-        .catch((error) => {
-          console.error("Error adding product:", error);
+    // Append product fields to FormData
+    formData.append("name", products.name);
+    formData.append("price", products.price);
+    formData.append("rating", products.rating);
+    formData.append("description", products.description);
+
+    // If you have a file input, get the file from the DOM or state
+    if (selectedFile) {
+      formData.append("image", selectedFile);
+    }
+
+    try {
+      if (!product) {
+        // POST: Add new product with image
+        axios.post("/api/products", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
-      resetRedirect();
-    } else {
-      // Execute the API call to update an existing product
-      axios
-        .put(`/api/products/${product.id}`, payload)
-        .then((response) => {
-          console.log("Product updated successfully:", response.data.product);
-        })
-        .catch((error) => {
-          console.error("Error updating product:", error);
+        resetRedirect();
+      } else {
+        // PUT: Update existing product with image
+        axios.put(`/api/products/${product.id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
-      resetRedirect(product.id);
+        resetRedirect(product.id);
+      }
+    } catch (error) {
+      console.error("Error submitting product:", error);
     }
   };
 
@@ -161,7 +163,7 @@ function ProductForm({ product }: ProductFormProps) {
           <ModalHeader>Create New Product</ModalHeader>
           {/* <!-- Modal body --> */}
           <div className="flex items-center justify-center my-3">
-            <FileInp />
+            <FileInp selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
           </div>
           <form onSubmit={handleSubmit} ref={form}>
             <div className="grid gap-4 mb-4 grid-cols-2">
