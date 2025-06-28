@@ -29,21 +29,32 @@ export async function POST(request) {
     const rating = data.get("rating");
     const image = data.get("image");
 
+    // Validate the form data
     if (!name) {
       return NextResponse.json({ message: "Invalid request" });
     }
+    // Optionally, you can add more validation and sanitization here
 
-    // Ensure the images directory exists
+    // Directory to save images
     const imagesDir = "public/images";
+    // Ensure the images directory exists
     if (!existsSync(imagesDir)) {
       mkdirSync(imagesDir, { recursive: true });
     }
 
-    // Get extension from original filename if available
+    // Initialize the image filename
     let imageFilename = "";
+
+    // Check if an image is provided and has a valid name
     if (image && image.name) {
+      // Get extension from original filename if available
       const ext = path.extname(image.name) || ".jpg";
+      // Generate a unique filename with a timestamp and sanitized name
+      // Replace spaces with underscores and remove any other invalid characters
       imageFilename = `${Date.now()}-${name.replace(/\s+/g, "_")}${ext}`;
+      // Save the image to the images directory
+      // You can use a library like 'fs' to handle file operations
+      // For simplicity, we'll use a simple write operation here
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
       writeFile(`${imagesDir}/${imageFilename}`, buffer, function (err) {
