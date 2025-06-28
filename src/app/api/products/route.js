@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
-import { writeFile, mkdirSync, existsSync } from "fs";
+import { writeFile, mkdirSync, existsSync, unlink } from "fs";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -81,11 +81,14 @@ export async function POST(request) {
         public_id: baseName, // Use the product name as the public ID
       });
       console.log("Image uploaded successfully:", uploadResult);
-      // // Update the image URL in the database
-      // await prisma.product.update({
-      //   where: { id: 1 }, // Replace with the actual product ID
-      //   data: { image: uploadResult.secure_url },
-      // });
+      // Delete the local image file after uploading
+      // You can use a library like 'fs' to handle file operations
+      // For simplicity, we'll use a simple unlink operation here
+      if (uploadResult) {
+        unlink(filePath, (err) => {
+          if (err) console.error("Error deleting local file:", err);
+        });
+      }
     }
 
     // Create the product in the database
