@@ -122,6 +122,12 @@ npm i react-icons
 npm i axios
 ```
 
+### Cloudinary
+
+```bash
+npm i cloudinary
+```
+
 ## Source video
 
 <https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>

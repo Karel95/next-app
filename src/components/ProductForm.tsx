@@ -115,7 +115,12 @@ function ProductForm({ product }: ProductFormProps) {
 
   function resetRedirect(productId?: number) {
     // Reset the form fields
-    form.current?.reset();
+    setProducts({
+      name: "",
+      price: "",
+      rating: "",
+      description: "",
+    });
     // Optionally you can close the modal after submission
     setOpenModal(false);
     // Redirect to the specific product page

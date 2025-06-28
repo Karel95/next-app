@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 import { writeFile, mkdirSync, existsSync } from "fs";
 import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function GET() {
   try {
@@ -52,17 +59,30 @@ export async function POST(request) {
       // Generate a unique filename with a timestamp and sanitized name
       // Replace spaces with underscores and remove any other invalid characters
       imageFilename = `${Date.now()}-${name.replace(/\s+/g, "_")}${ext}`;
+      // Construct the file pathfor the image
+      const filePath = `${imagesDir}/${imageFilename}`;
       // Save the image to the images directory
       // You can use a library like 'fs' to handle file operations
       // For simplicity, we'll use a simple write operation here
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      writeFile(`${imagesDir}/${imageFilename}`, buffer, function (err) {
+      writeFile(filePath, buffer, function (err) {
         if (err) {
           console.error(err);
         }
       });
-      console.log(`Image saved to ${imagesDir}/${imageFilename}`);
+      // Optionally, you can upload the image to a cloud storage service like Cloudinary, AWS S3, Microsoft Azure, Google Cloud Storage, etc.
+      // In this example, we'll upload the image to Cloudinary
+      const uploadResult = await cloudinary.uploader.upload(filePath, {
+        folder: "products", // Specify the folder where the image will be uploaded
+        public_id: `${imageFilename}`, // Use the product name as the public ID
+      });
+      console.log("Image uploaded successfully:", uploadResult);
+      // // Update the image URL in the database
+      // await prisma.product.update({
+      //   where: { id: 1 }, // Replace with the actual product ID
+      //   data: { image: uploadResult.secure_url },
+      // });
     }
 
     // Create the product in the database
