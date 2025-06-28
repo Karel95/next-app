@@ -28,6 +28,7 @@ function ProductForm({ product }: ProductFormProps) {
     price: "",
     rating: "",
     description: "",
+    image: null as string | null,
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const form = useRef<HTMLFormElement | null>(null);
@@ -103,6 +104,7 @@ function ProductForm({ product }: ProductFormProps) {
         price: String(product.price),
         rating: String(product.rating),
         description: product.description || "",
+        image: product.image || null,
       };
       // Update the form fields with the product data
       setProducts(payload);
@@ -120,6 +122,7 @@ function ProductForm({ product }: ProductFormProps) {
       price: "",
       rating: "",
       description: "",
+      image: "",
     });
     // Optionally you can close the modal after submission
     setOpenModal(false);

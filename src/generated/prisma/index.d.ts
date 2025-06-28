@@ -4261,6 +4261,7 @@ export namespace Prisma {
     description: string | null
     price: number | null
     rating: number | null
+    image: string | null
     createdAt: Date | null
   }
 
@@ -4270,6 +4271,7 @@ export namespace Prisma {
     description: string | null
     price: number | null
     rating: number | null
+    image: string | null
     createdAt: Date | null
   }
 
@@ -4279,6 +4281,7 @@ export namespace Prisma {
     description: number
     price: number
     rating: number
+    image: number
     createdAt: number
     _all: number
   }
@@ -4302,6 +4305,7 @@ export namespace Prisma {
     description?: true
     price?: true
     rating?: true
+    image?: true
     createdAt?: true
   }
 
@@ -4311,6 +4315,7 @@ export namespace Prisma {
     description?: true
     price?: true
     rating?: true
+    image?: true
     createdAt?: true
   }
 
@@ -4320,6 +4325,7 @@ export namespace Prisma {
     description?: true
     price?: true
     rating?: true
+    image?: true
     createdAt?: true
     _all?: true
   }
@@ -4416,6 +4422,7 @@ export namespace Prisma {
     description: string | null
     price: number | null
     rating: number | null
+    image: string | null
     createdAt: Date
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -4444,6 +4451,7 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     rating?: boolean
+    image?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["product"]>
 
@@ -4453,6 +4461,7 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     rating?: boolean
+    image?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["product"]>
 
@@ -4462,6 +4471,7 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     rating?: boolean
+    image?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["product"]>
 
@@ -4471,10 +4481,11 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     rating?: boolean
+    image?: boolean
     createdAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "rating" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "rating" | "image" | "createdAt", ExtArgs["result"]["product"]>
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
@@ -4485,6 +4496,7 @@ export namespace Prisma {
       description: string | null
       price: number | null
       rating: number | null
+      image: string | null
       createdAt: Date
     }, ExtArgs["result"]["product"]>
     composites: {}
@@ -4914,6 +4926,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Product", 'String'>
     readonly price: FieldRef<"Product", 'Float'>
     readonly rating: FieldRef<"Product", 'Float'>
+    readonly image: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
   }
     
@@ -5334,6 +5347,7 @@ export namespace Prisma {
     description: 'description',
     price: 'price',
     rating: 'rating',
+    image: 'image',
     createdAt: 'createdAt'
   };
 
@@ -5606,6 +5620,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Product"> | string | null
     price?: FloatNullableFilter<"Product"> | number | null
     rating?: FloatNullableFilter<"Product"> | number | null
+    image?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
   }
 
@@ -5615,6 +5630,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     rating?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
   }
 
@@ -5627,6 +5643,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Product"> | string | null
     price?: FloatNullableFilter<"Product"> | number | null
     rating?: FloatNullableFilter<"Product"> | number | null
+    image?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
   }, "id">
 
@@ -5636,6 +5653,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     rating?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -5653,6 +5671,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Product"> | string | null
     price?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     rating?: FloatNullableWithAggregatesFilter<"Product"> | number | null
+    image?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
 
@@ -5820,6 +5839,7 @@ export namespace Prisma {
     description?: string | null
     price?: number | null
     rating?: number | null
+    image?: string | null
     createdAt?: Date | string
   }
 
@@ -5829,6 +5849,7 @@ export namespace Prisma {
     description?: string | null
     price?: number | null
     rating?: number | null
+    image?: string | null
     createdAt?: Date | string
   }
 
@@ -5837,6 +5858,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5846,6 +5868,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5855,6 +5878,7 @@ export namespace Prisma {
     description?: string | null
     price?: number | null
     rating?: number | null
+    image?: string | null
     createdAt?: Date | string
   }
 
@@ -5863,6 +5887,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5872,6 +5897,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6124,6 +6150,7 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6139,6 +6166,7 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6148,6 +6176,7 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
   }
 

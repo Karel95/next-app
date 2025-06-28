@@ -4,6 +4,7 @@ import type { Product as PrismaProduct } from "@/generated/prisma/client";
 import RatingStars from "./RatingStars";
 import Link from "next/link";
 import axios from "axios";
+import Image from "next/image";
 
 type ProductCardProps = {
   product: PrismaProduct;
@@ -28,11 +29,14 @@ async function handleDeleteButtonClick(id:number) {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <Card
-      className="max-w-sm m-5"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/images/products/apple-watch.png"
-    >
+    <Card className="max-w-sm m-5">
+      <Image
+        width={320}
+        height={240}
+        src={product.image ?? "/no-image.jpg"}
+        alt={product.name}
+        className="rounded-xl"
+      />
       <Link href={`/projects/products/${product.id}`}>
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
           {product.name}

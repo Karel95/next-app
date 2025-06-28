@@ -49,8 +49,9 @@ export async function POST(request) {
       mkdirSync(imagesDir, { recursive: true });
     }
 
-    // Initialize the image filename
+    // Initialize variables
     let imageFilename = "";
+    let uploadResult = null;
 
     // Check if an image is provided and has a valid name
     if (image && image.name) {
@@ -58,7 +59,9 @@ export async function POST(request) {
       const ext = path.extname(image.name) || ".jpg";
       // Generate a unique filename with a timestamp and sanitized name
       // Replace spaces with underscores and remove any other invalid characters
-      imageFilename = `${Date.now()}-${name.replace(/\s+/g, "_")}${ext}`;
+      const baseName = `${Date.now()}-${name.replace(/\s+/g, "_")}`;
+      // Combine the base name with the extension
+      imageFilename = `${baseName}${ext}`;
       // Construct the file pathfor the image
       const filePath = `${imagesDir}/${imageFilename}`;
       // Save the image to the images directory
@@ -73,9 +76,9 @@ export async function POST(request) {
       });
       // Optionally, you can upload the image to a cloud storage service like Cloudinary, AWS S3, Microsoft Azure, Google Cloud Storage, etc.
       // In this example, we'll upload the image to Cloudinary
-      const uploadResult = await cloudinary.uploader.upload(filePath, {
+      uploadResult = await cloudinary.uploader.upload(filePath, {
         folder: "products", // Specify the folder where the image will be uploaded
-        public_id: `${imageFilename}`, // Use the product name as the public ID
+        public_id: baseName, // Use the product name as the public ID
       });
       console.log("Image uploaded successfully:", uploadResult);
       // // Update the image URL in the database
@@ -92,6 +95,7 @@ export async function POST(request) {
         description,
         price: price ? parseFloat(price) : null,
         rating: rating ? parseFloat(rating) : null,
+        image: uploadResult?.secure_url || null, // Optionally, you can use a placeholder URL if the image is not uploaded
       },
     });
     if (!product) {
