@@ -9,20 +9,21 @@ function ImgGenaiPage() {
 
   return (
     <div className="flex justify-center">
-      <form 
-        className="max-w-md w-1/2 m-5" 
+      <form
+        className="max-w-4xl w-1/2 m-5 p-5 bg-gray-900 border-2 border-gray-500 shadow-lg rounded-md"
         onSubmit={(e) => {
           e.preventDefault();
           console.log("prompt:\n", prompt);
-        }}>
+        }}
+      >
         <Image
           width={1280}
           height={720}
-          src="/img-genai.jpg"
+          src="/images/team-9230101_640.png"
           alt="img-genai.jpg"
           className="rounded-xl"
         />
-        <div id="imgGenaiTextarea" className="max-w-md">
+        <div id="imgGenaiTextarea" className="w-full my-4">
           <div className="mb-2 block">
             <Label htmlFor="comment">Your prompt:</Label>
           </div>
