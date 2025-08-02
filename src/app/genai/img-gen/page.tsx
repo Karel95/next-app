@@ -15,9 +15,14 @@ export default function ImageGenerator() {
     setLoading(true);
     setError(null);
     setImageUrl('');
+    
+    if (!prompt) {
+      setError('Please enter a prompt');
+      return;
+    }
 
     try {
-      const response = await fetch('/api/generate-image', {
+      const response = await fetch('/api/genai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
