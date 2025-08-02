@@ -11,16 +11,16 @@ const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 export async function POST(request: Request) {
   try {
-    const prompt = await request.json();
+    const { prompt: userPrompt } = await request.json();
 
-    if (!prompt) {
+    if (!userPrompt || typeof userPrompt !== 'string') {
       return NextResponse.json(
-        { error: "Prompt is required." },
+        { error: "A string 'prompt' is required in the request body." },
         { status: 400 }
       );
     }
 
-    const contents = `Generate an image of: ${prompt}`;
+    const contents = `Generate an image of: ${userPrompt}`;
 
     // Set responseModalities to include "Image" so the model can generate  an image
     const response = await ai.models.generateContent({
@@ -61,7 +61,6 @@ export async function POST(request: Request) {
       // Based on the part type, either show the text or save the image
       if (part.text) {
         generatedText = part.text;
-        console.log(generatedText);
       } else if (part.inlineData) {
         const imageData = part.inlineData.data;
         const mimeType = part.inlineData.mimeType || "image/png";
@@ -75,11 +74,9 @@ export async function POST(request: Request) {
           const filename = `gemini-image-${Date.now()}.${extension}`;
           imagePath = `public/generated/${filename}`; // Save in public folder
 
-          // Make sure directory exists
+          // Make sure directory exists and save the image
           fs.mkdir("public/generated", { recursive: true });
-
           fs.writeFile(imagePath, buffer);
-          console.log(`Image saved as ${imagePath}`);
 
           imageUrl = `/generated/${filename}`;
         }
