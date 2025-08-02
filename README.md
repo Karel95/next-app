@@ -128,6 +128,12 @@ npm i axios
 npm i cloudinary
 ```
 
-## Source video
+### Google GenAI SDK
 
-<https://youtu.be/_SPoSMmN3ZU?si=ThE3_TkEtm5kRmP3>
+```bash
+npm install @google/genai
+```
+
+## Source playlist
+
+<https://youtube.com/playlist?list=PL8_HKsBUtCXUs-Ono-WJmTpy-X0jgCOi7&si=c8tDjlKUW6VDMEoI>
