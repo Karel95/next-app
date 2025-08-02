@@ -65,7 +65,7 @@ export default function ImageGenerator() {
             id="prompt"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="A robot painting a sunset..."
+            placeholder="Type something here to generate an image..."
             className="w-full px-4 py-2 text-sm rounded-lg bg-white/10 text-white placeholder-slate-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             required
           />
