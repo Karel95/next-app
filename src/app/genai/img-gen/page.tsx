@@ -73,7 +73,7 @@ export default function ImageGenerator() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-4 w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition disabled:opacity-50"
+            className="mt-4 w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Generating..." : "Generate Image"}
           </button>
